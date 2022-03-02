@@ -1067,16 +1067,14 @@ G4double GateImageRegionalizedVolume::DistanceToOut(const G4ThreeVector& p, Labe
   LabelType l = (LabelType)GetImage()->GetValue(index);
   GateDebugMessage("Volume",6,"Index = " << index << " la=" << l << Gateendl);
 
+  index = pDistanceMap->GetIndexFromPosition(p);
   // Not on a side
-  if (l == label) {
-    index = pDistanceMap->GetIndexFromPosition(p);
+  if (index != -1 && l == label) {
     G4double d = 0.0;
-    if (index != -1) {
-      d = pDistanceMap->GetValue(index);
-      if (d!=0) {
-        lPreviousD = d;
-        return d;
-      }
+    d = pDistanceMap->GetValue(index);
+    if (d!=0) {
+      lPreviousD = d;
+      return d;
     }
 
     GateDebugMessage("Volume",6,"Dmap index = " << index << " d=" << d << Gateendl);
