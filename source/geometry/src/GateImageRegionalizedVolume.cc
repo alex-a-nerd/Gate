@@ -1057,7 +1057,8 @@ G4double GateImageRegionalizedVolume::DistanceToOut(const G4ThreeVector& p, Labe
   int index = GetImage()->GetIndexFromPosition(p);
   // If the index is -1, we detected the position being out of bounds in GetIndexFromPosition.
   // We need to skip any further processing in order to not have invalid memory access
-  // potentially leading to seg faults.
+  // potentially leading to segmentation faults.
+  // According to comments in Geant4 source code, when outside the volume, return 0.
   if (index == -1) {
     GateDebugMessage("Volume", 6, "Index out of bounds; DISTANCETOOUT = " << 0.0 << Gateendl);
     lPreviousD = 0.0;
